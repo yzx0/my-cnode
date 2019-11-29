@@ -40,6 +40,7 @@ export default {
   methods:{
     handleClick(index){
       this.headerArr[index].isActive = !this.headerArr[index].isActive
+      
     }
   }
 }
