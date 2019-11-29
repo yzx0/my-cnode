@@ -1,10 +1,19 @@
 <template>
-  <div>
+  <div class="topic-list-contain">
     <ul class="topic-list-header">
-      <li v-for="(item,index) in headerArr" :key="index" @click="handleClick(index)" :class="{active:item.isActive}">{{item.text}}</li>
+      <li v-for="(item,index) in headerArr" :key="index" @click="headerListClick(index)" :class="{active:item.isActive}">{{item.text}}</li>
     </ul>
-    <div class="topic-list-contain">
-      <TopicListItem v-for="(item,index) in topicsArr" :key="index" :title="item.title"/>
+    <div class="topic-list">
+      <TopicListItem 
+        v-for="(item,index) in topicsArr" 
+        :key="index" 
+        :title="item.title" 
+        :avatarUrl="item.author.avatar_url"
+        :visitCount="item.visit_count"
+        :replyCount="item.reply_count"
+        :tab="item.tab"
+        :lastReplyTime="item.last_reply_at"
+      />
     </div>
   </div>
 </template>
@@ -22,25 +31,28 @@ export default {
         {text:'分享',isActive:false},
         {text:'回答',isActive:false},
         {text:'招聘',isActive:false},
-        {text:'客户端测试',isActive:false}],
+        {text:'客户端测试',isActive:false}
+        ],
       topicsArr:[]
     }
   },
   created(){
-    this.$axios.get('https://cnodejs.org/api/v1/topics',{
+     this.$axios.get('https://cnodejs.org/api/v1/topics',{
       params:{
-        limit:20
+        limit:5
       }
     }).then(res=>{
+      console.log(res)
       this.topicsArr = res.data.data
     }).catch(error =>{
       console.log(error)
     })
   },
   methods:{
-    handleClick(index){
-      this.headerArr[index].isActive = !this.headerArr[index].isActive
-      
+    headerListClick(currentIndex){
+      this.headerArr.forEach((item,index)=>{
+        index === currentIndex ? item.isActive = true : item.isActive = false
+      })
     }
   }
 }
@@ -51,6 +63,7 @@ export default {
   display: flex;
   align-items: center;
   background-color: #f6f6f6;
+  padding: 10px 20px;
 }
 li{
   cursor: pointer;
@@ -63,5 +76,9 @@ li{
     background-color: #80bd01;
     color: #fff
   }
+}
+.topic-list-contain{
+  margin-top: 20px;
+  border-radius: 4px;
 }
 </style>
