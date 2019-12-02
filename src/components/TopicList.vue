@@ -39,7 +39,7 @@ export default {
   created(){
      this.$axios.get('https://cnodejs.org/api/v1/topics',{
       params:{
-        limit:5
+        limit:20
       }
     }).then(res=>{
       console.log(res)

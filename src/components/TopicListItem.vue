@@ -58,24 +58,19 @@ export default {
       return text;
     },
     formatTime(value){
-      let countTime = ''
-      let currentTime = new Date().valueOf()
-      let lastTime = new Date(value).valueOf()
-      let y = new Date(currentTime - lastTime).getFullYear()
-      let m = new Date(currentTime - lastTime).getMonth()
-      let d = new Date(currentTime - lastTime).getDay()
-      let H = new Date(currentTime - lastTime).getHours()
-      let M = new Date(currentTime - lastTime).getMinutes()
-      console.log(y,m,d)
-      if(d <= 30){
-        countTime = d+' 天前'
-      }else if(m <= 12){
-        countTime = m + '月前'
-      }else if(y > 1970){
-        countTime = y - 1970 + ' 年前'
+      let time = (new Date().getTime()) - (new Date(value).getTime())
+      if(time / (1000*60) < 60 ){
+        time = (parseInt(time / (1000*60),10)) + ' 分钟前'
+      }else if(time / (1000*60*60) < 24){
+        time = (parseInt(time / (1000*60*60),10)) + ' 小时前'
+      }else if(time / (1000*60*60*24) < 30){
+        time = (parseInt(time / (1000*60*60*24),10)) + ' 天前'
+      }else if(time / (1000*60*60*24*30) < 12){
+        time = (parseInt(time / (1000*60*60*30),10)) + ' 月前'
+      }else if(time / (1000*60*60*24*30*12) < 365){
+        time = (parseInt(time / (1000*60*60*30*12),10)) + ' 年前'
       }
-      console.log(countTime)
-      return countTime
+      return time
     }
   }
 };
@@ -135,7 +130,7 @@ img {
 }
 .topic-title{
   color: #333;
-  max-width: 70%;
+  max-width: 1100px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
