@@ -7,12 +7,10 @@
         <span class="topic-separator">/</span>
         <span class="topic-visit-count">{{visitCount}}</span>
       </div>
-      <span class="topic-tab">{{tab | changeText}}</span>
+      <span :class="[{active:isActive},'topic-tab']">{{thisTab}}</span>
       <span class="topic-title">{{title}}</span>
     </div>
-    <div class="topic-list-right">
-      {{lastReplyTime | formatTime}}
-    </div>
+    <div class="topic-list-right">{{lastReplyTime | formatTime}}</div>
   </div>
 </template>
 
@@ -34,14 +32,31 @@ export default {
     tab: {
       type: String
     },
-    lastReplyTime:{
+    lastReplyTime: {
       type: String
+    },
+    isGood: {
+      type: Boolean
+    },
+    isTop:{
+      type: Boolean
     }
   },
-  filters: {
-    changeText(value) {
-      let text = "";
-      switch (value) {
+  computed: {
+    isActive(){
+      return (this.isGood || this.isTop) ? true : false
+    },
+    thisTab() {
+      let text = ''
+      if(this.isTop){
+        text = '置顶'
+        return text
+      }
+      if (this.isGood) {
+        text = '精华'
+        return text;
+      }
+       switch (this.tab) {
         case "share":
           text = "分享";
           break;
@@ -51,26 +66,25 @@ export default {
         case "job":
           text = "工作";
           break;
-        case "good":
-          text = "精华";
-          break;
       }
-      return text;
-    },
-    formatTime(value){
-      let time = (new Date().getTime()) - (new Date(value).getTime())
-      if(time / (1000*60) < 60 ){
-        time = (parseInt(time / (1000*60),10)) + ' 分钟前'
-      }else if(time / (1000*60*60) < 24){
-        time = (parseInt(time / (1000*60*60),10)) + ' 小时前'
-      }else if(time / (1000*60*60*24) < 30){
-        time = (parseInt(time / (1000*60*60*24),10)) + ' 天前'
-      }else if(time / (1000*60*60*24*30) < 12){
-        time = (parseInt(time / (1000*60*60*30),10)) + ' 月前'
-      }else if(time / (1000*60*60*24*30*12) < 365){
-        time = (parseInt(time / (1000*60*60*30*12),10)) + ' 年前'
+      return text
+    }
+  },
+  filters: {
+    formatTime(value) {
+      let time = new Date().getTime() - new Date(value).getTime();
+      if (time / (1000 * 60) < 60) {
+        time = parseInt(time / (1000 * 60), 10) + " 分钟前";
+      } else if (time / (1000 * 60 * 60) < 24) {
+        time = parseInt(time / (1000 * 60 * 60), 10) + " 小时前";
+      } else if (time / (1000 * 60 * 60 * 24) < 30) {
+        time = parseInt(time / (1000 * 60 * 60 * 24), 10) + " 天前";
+      } else if (time / (1000 * 60 * 60 * 24 * 30) < 12) {
+        time = parseInt(time / (1000 * 60 * 60 * 30), 10) + " 月前";
+      } else if (time / (1000 * 60 * 60 * 24 * 30 * 12) < 365) {
+        time = parseInt(time / (1000 * 60 * 60 * 30 * 12), 10) + " 年前";
       }
-      return time
+      return time;
     }
   }
 };
@@ -94,7 +108,7 @@ export default {
   display: flex;
   align-items: center;
 }
-.topic-list-right{
+.topic-list-right {
   font-size: 12px;
   color: #888;
 }
@@ -127,20 +141,23 @@ img {
   padding: 4px;
   margin-left: 4px;
   margin-right: 4px;
+  &.active {
+    background-color: #80bd01;
+    color: #fff;
+  }
 }
-.topic-title{
+.topic-title {
   color: #333;
   max-width: 1100px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  &:hover{
+  &:hover {
     text-decoration: underline;
     cursor: pointer;
   }
 }
-.count-contain{
+.count-contain {
   width: 70px;
 }
-
 </style>
