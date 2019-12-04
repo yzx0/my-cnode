@@ -5,9 +5,11 @@
         v-for="(item,index) in headerArr"
         :key="index"
         @click="headerListClick(index,item.text)"
-        :class="{active:item.isActive}"
+        :class="{active:index === currentTabIndex}"
       >{{item.text}}</li>
     </ul>
+    
+    <SortPage />
     <div class="topic-list">
       <TopicListItem
         v-for="(item,index) in topicsArr"
@@ -26,9 +28,11 @@
 </template>
 <script>
 import TopicListItem from "./TopicListItem";
+import SortPage from './SortPage'
 export default {
   components: {
-    TopicListItem
+    TopicListItem,
+    SortPage
   },
   data() {
     return {
@@ -42,29 +46,30 @@ export default {
       ],
       topicsArr: [],
       currentTab: 'all',
+      currentTabIndex:0,
       isGood :false
     };
   },
   created() {
-    this.$axios
-      .get("https://cnodejs.org/api/v1/topics", {
-        params: {
-          tab: 'all',
-          limit: 20
-        }
-      })
-      .then(res => {
-        this.topicsArr = res.data.data;
-      })
-      .catch(error => {
-        console.log(error);
-      });
+    this.getData()
   },
   methods: {
+    getData(){
+      this.$axios
+        .get("https://cnodejs.org/api/v1/topics", {
+          params: {
+            tab: this.currentTab,
+            limit: 20
+          }
+        })
+        .then(res => {
+          this.topicsArr = res.data.data
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
     formatTab(){
-      if(this.isGood){
-        this.currentTab
-      }
       switch (this.currentTab) {
         case "回答":
           this.currentTab = "ask";
@@ -83,33 +88,11 @@ export default {
           break;
       }
     },
-    headerListClick(currentIndex,tab) {
+    headerListClick(index,tab) {
+      this.currentTabIndex = index
       this.currentTab = tab
-
-      this.headerArr.forEach((item, index) => {
-        index === currentIndex
-          ? item.isActive = true
-          : item.isActive = false;
-      });
-
       this.formatTab()
-
-      this.$axios
-        .get("https://cnodejs.org/api/v1/topics", {
-          params: {
-            tab: this.currentTab,
-            limit: 20
-          }
-        })
-        .then(res => {
-          this.topicsArr = []
-          res.data.data.forEach(item => {
-            this.topicsArr.push(item)
-          }) 
-        })
-        .catch(error => {
-          console.log(error);
-        });
+      this.getData()
     }
   }
 };
