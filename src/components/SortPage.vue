@@ -15,12 +15,17 @@
 
 <script>
 export default {
+  props:{
+  },
   data() {
     return {
       pageArr: [1, 2, 3, 4, 5],
       showPoint: false,
       currentPage: 1
     };
+  },
+  computed:{
+
   },
   methods: {
     changePage(item) {

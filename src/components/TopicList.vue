@@ -4,12 +4,12 @@
       <li
         v-for="(item,index) in headerArr"
         :key="index"
-        @click="headerListClick(index,item.text)"
+        @click="changeTab(index,item.text)"
         :class="{active:index === currentTabIndex}"
       >{{item.text}}</li>
     </ul>
     
-    <SortPage />
+    <SortPage @changePage="changePage" ref="sortPage"/>
     <div class="topic-list">
       <TopicListItem
         v-for="(item,index) in topicsArr"
@@ -47,6 +47,7 @@ export default {
       topicsArr: [],
       currentTab: 'all',
       currentTabIndex:0,
+      currentPage:1,
       isGood :false
     };
   },
@@ -54,10 +55,15 @@ export default {
     this.getData()
   },
   methods: {
+    changePage(value){
+      this.currentPage = value
+      this.getData()
+    },
     getData(){
       this.$axios
         .get("https://cnodejs.org/api/v1/topics", {
           params: {
+            page:this.currentPage,
             tab: this.currentTab,
             limit: 20
           }
@@ -88,11 +94,13 @@ export default {
           break;
       }
     },
-    headerListClick(index,tab) {
+    changeTab(index,tab) {
       this.currentTabIndex = index
       this.currentTab = tab
+      this.currentPage = 1
       this.formatTab()
       this.getData()
+      this.$refs.sortPage.changePage(1)
     }
   }
 };
