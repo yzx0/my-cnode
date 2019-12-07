@@ -2,7 +2,9 @@
   <div class="top-nav">
     <div class="top-nav-inner">
       <div class="left">
-        <img src="//static2.cnodejs.org/public/images/cnodejs_light.svg" alt="" class="nav-logo">
+        <router-link :to="{name:'TopicList'}">
+          <img src="//static2.cnodejs.org/public/images/cnodejs_light.svg" alt="" class="nav-logo">
+        </router-link>
         <div class="search-input">
           <input type="text">
           <svg class="icon" aria-hidden="true">

@@ -8,7 +8,9 @@
         <span class="topic-visit-count">{{visitCount}}</span>
       </div>
       <span :class="[{active:isActive},'topic-tab']">{{thisTab}}</span>
-      <span class="topic-title">{{title}}</span>
+      <router-link :to="{name:'TopicDetail',params:{id}}">
+        <span class="topic-title">{{title}}</span>
+      </router-link> 
     </div>
     <div class="topic-list-right">{{lastReplyTime | formatTime}}</div>
   </div>
@@ -40,6 +42,9 @@ export default {
     },
     isTop:{
       type: Boolean
+    },
+    id:{
+      type:String
     }
   },
   computed: {

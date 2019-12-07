@@ -2,20 +2,17 @@
   <div id="app">
     <TopNav />
     <div class="width-contain">
-      <TopicList />
+      <router-view name="main"></router-view>
     </div>
   </div>
 </template>
 
 <script>
 import TopNav from "./components/TopNav";
-import TopicList from './components/TopicList'
-
 export default {
   name: "app",
   components: {
-    TopNav,
-    TopicList
+    TopNav
   }
 };
 </script>

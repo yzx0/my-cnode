@@ -8,8 +8,6 @@
         :class="{active:index === currentTabIndex}"
       >{{item.text}}</li>
     </ul>
-    
-    <SortPage @changePage="changePage" ref="sortPage"/>
     <div class="topic-list">
       <TopicListItem
         v-for="(item,index) in topicsArr"
@@ -22,8 +20,12 @@
         :lastReplyTime="item.last_reply_at"
         :isGood="item.good"
         :isTop="item.top"
+        :id="item.id"
       />
     </div>
+    <SortPage @changePage="changePage" ref="sortPage"/>
+
+
   </div>
 </template>
 <script>
@@ -69,6 +71,7 @@ export default {
           }
         })
         .then(res => {
+          console.log(res)
           this.topicsArr = res.data.data
         })
         .catch(error => {
