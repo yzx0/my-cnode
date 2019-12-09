@@ -10,22 +10,9 @@
     </ul>
     <div class="topic-list">
       <TopicListItem
-        v-for="(item,index) in topicsArr"
-        :key="index"
-        :title="item.title"
-        :avatarUrl="item.author.avatar_url"
-        :visitCount="item.visit_count"
-        :replyCount="item.reply_count"
-        :tab="item.tab"
-        :lastReplyTime="item.last_reply_at"
-        :isGood="item.good"
-        :isTop="item.top"
-        :id="item.id"
-      />
+        v-for="(item,index) in topicsArr" :key="index" :item="item"/>
     </div>
     <SortPage @changePage="changePage" ref="sortPage"/>
-
-
   </div>
 </template>
 <script>

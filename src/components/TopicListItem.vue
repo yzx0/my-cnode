@@ -1,67 +1,41 @@
 <template>
   <div class="topic-list-item">
     <div class="topic-list-left">
-      <img :src="this.avatarUrl" alt />
+      <img :src="item.author.avatar_url" alt />
       <div class="count-contain">
-        <span class="topic-reply-count">{{replyCount}}</span>
+        <span class="topic-reply-count">{{item.reply_count}}</span>
         <span class="topic-separator">/</span>
-        <span class="topic-visit-count">{{visitCount}}</span>
+        <span class="topic-visit-count">{{item.visit_count}}</span>
       </div>
       <span :class="[{active:isActive},'topic-tab']">{{thisTab}}</span>
-      <router-link :to="{name:'TopicDetail',params:{id}}">
-        <span class="topic-title">{{title}}</span>
+      <router-link :to="{name:'TopicDetail',params:{id:item.id}}">
+        <span class="topic-title">{{item.title}}</span>
       </router-link> 
     </div>
-    <div class="topic-list-right">{{lastReplyTime | formatTime}}</div>
+    <div class="topic-list-right">{{item.last_reply_at | formatTime}}</div>
   </div>
 </template>
 
 <script>
 export default {
   props: {
-    title: {
-      type: String
-    },
-    avatarUrl: {
-      type: String
-    },
-    visitCount: {
-      type: Number
-    },
-    replyCount: {
-      type: Number
-    },
-    tab: {
-      type: String
-    },
-    lastReplyTime: {
-      type: String
-    },
-    isGood: {
-      type: Boolean
-    },
-    isTop:{
-      type: Boolean
-    },
-    id:{
-      type:String
-    }
+    item:Object
   },
   computed: {
     isActive(){
-      return (this.isGood || this.isTop) ? true : false
+      return (this.item.good || this.item.top) ? true : false
     },
     thisTab() {
       let text = ''
-      if(this.isTop){
+      if(this.item.top){
         text = '置顶'
         return text
       }
-      if (this.isGood) {
+      if (this.item.good) {
         text = '精华'
         return text;
       }
-       switch (this.tab) {
+       switch (this.item.tab) {
         case "share":
           text = "分享";
           break;
@@ -74,23 +48,6 @@ export default {
       }
       return text
     }
-  },
-  filters: {
-    formatTime(value) {
-      let time = new Date().getTime() - new Date(value).getTime();
-      if (time / (1000 * 60) < 60) {
-        time = parseInt(time / (1000 * 60), 10) + " 分钟前";
-      } else if (time / (1000 * 60 * 60) < 24) {
-        time = parseInt(time / (1000 * 60 * 60), 10) + " 小时前";
-      } else if (time / (1000 * 60 * 60 * 24) < 30) {
-        time = parseInt(time / (1000 * 60 * 60 * 24), 10) + " 天前";
-      } else if (time / (1000 * 60 * 60 * 24 * 30) < 12) {
-        time = parseInt(time / (1000 * 60 * 60 * 30), 10) + " 月前";
-      } else if (time / (1000 * 60 * 60 * 24 * 30 * 12) < 365) {
-        time = parseInt(time / (1000 * 60 * 60 * 30 * 12), 10) + " 年前";
-      }
-      return time;
-    }
   }
 };
 </script>
@@ -102,9 +59,6 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  &:last-child {
-    border: none;
-  }
   &:hover {
     background-color: #eee;
   }
