@@ -24,7 +24,7 @@
             <div class="user-and-comment">
               <div class="user-info">
                 <router-link to="TopicList">{{item.author.loginname}}</router-link>
-                <a :href="'#'+item.id" :id="item.id" class="inner-jump">  
+                <a @click="jumpAnchor" class="inner-jump">  
                   <span>{{index + 1}}楼</span>
                   <span>{{item.create_at | formatTime}}</span>
                 </a> 
@@ -63,6 +63,11 @@ export default {
         console.log(error);
       });
   },
+  methods:{
+    jumpAnchor(e){
+      e.target.scrollIntoView(true)
+    }
+  },
   filters: {
     formatTab(value) {
       let text = "";
@@ -95,6 +100,7 @@ export default {
   margin-top: 20px;
 }
 .inner-jump{
+  cursor: pointer;
   color: #4183c4;
 }
 #content{
