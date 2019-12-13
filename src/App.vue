@@ -1,14 +1,20 @@
 <template>
   <div id="app">
     <TopNav />
-    <div class="width-contain">
-      <router-view name="main"></router-view>
-    </div>
+    <main>
+      <div class="list-contain">
+        <router-view name="main"></router-view>
+      </div>
+      <aside>
+        <router-view name="aside"></router-view>
+      </aside>
+    </main>
   </div>
 </template>
 
 <script>
-import TopNav from "./components/TopNav";
+import TopNav from './components/TopNav'
+
 export default {
   name: "app",
   components: {
@@ -40,8 +46,17 @@ a{
 body{
   background-color: #e1e1e1;
 }
-.width-contain{
+main{
+  display: flex;
+  justify-content: space-between;
   width: 1400px;
   margin: 0 auto;
+}
+.list-contain{
+  flex-grow: 1;
+  margin-right: 20px;
+}
+aside{
+  margin-top: 20px;
 }
 </style>

@@ -2,7 +2,7 @@
   <div class="top-nav">
     <div class="top-nav-inner">
       <div class="left">
-        <router-link :to="{name:'TopicList'}">
+        <router-link to="/">
           <img src="//static2.cnodejs.org/public/images/cnodejs_light.svg" alt="" class="nav-logo">
         </router-link>
         <div class="search-input">
@@ -13,21 +13,40 @@
         </div>
       </div>
       <div class="right">
-        <ul>
-          <li>首页</li>
-          <li>新手入门</li>
-          <li>API</li>
-          <li>关于</li>
-          <li>注册</li>
-          <li>登录</li>
+        <ul >
+          <li v-for="(item,index) in tab" :key="index">
+            <router-link :to="item.path">{{item.text}}</router-link>
+          </li>
         </ul>
       </div>
     </div>
+    <button @click="xxx = 1">xxx</button>
   </div>
 </template>
 <script>
 export default {
-  
+  data(){
+    return {
+      xxx:'xxx',
+      tab:[
+        {text:'首页',path:'/'},
+        {text:'新手入门',path:''},
+        {text:'API',path:''},
+        {text:'关于',path:''},
+        {text:'注册',path:'/userPage'},
+        {text:'登录',path:'/login'}
+      ]
+    }
+  },
+  computed:{
+    isLogin(){
+      this.xxx
+      this.$store.isLogin
+      this.tab
+      console.log(this.tab)
+      return '';
+    }
+  }
 }
 </script>
 

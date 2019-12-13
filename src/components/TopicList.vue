@@ -4,9 +4,9 @@
       <li
         v-for="(item,index) in headerArr"
         :key="index"
-        @click="changeTab(index,item.text)"
+        @click="changeTab(index,item)"
         :class="{active:index === currentTabIndex}"
-      >{{item.text}}</li>
+      >{{item}}</li>
     </ul>
     <div class="topic-list">
       <TopicListItem
@@ -25,14 +25,7 @@ export default {
   },
   data() {
     return {
-      headerArr: [
-        { text: "全部", isActive: true },
-        { text: "精华", isActive: false },
-        { text: "分享", isActive: false },
-        { text: "回答", isActive: false },
-        { text: "招聘", isActive: false },
-        { text: "客户端测试", isActive: false }
-      ],
+      headerArr: ["全部","精华","分享","回答","招聘"],
       topicsArr: [],
       currentTab: 'all',
       currentTabIndex:0,

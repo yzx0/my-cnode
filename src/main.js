@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './routers/index.js'
+import store from './store/store.js'
 import './assets/iconfont/iconfont'
 import axios from 'axios'
 
@@ -25,6 +26,7 @@ Vue.filter('formatTime',function(value){
 })
 
 new Vue({
-  router:router,
+  router,
+  store,
   render: h => h(App),
 }).$mount('#app')
