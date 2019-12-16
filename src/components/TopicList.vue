@@ -51,7 +51,6 @@ export default {
           }
         })
         .then(res => {
-          console.log(res)
           this.topicsArr = res.data.data
         })
         .catch(error => {

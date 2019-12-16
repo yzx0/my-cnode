@@ -13,38 +13,46 @@
         </div>
       </div>
       <div class="right">
-        <ul >
-          <li v-for="(item,index) in tab" :key="index">
+        <ul v-if="isLogin">
+          <li v-for="(item,index) in loginTab" :key="index" @click="navClick(item)">
+            <router-link :to="item.path">{{item.text}}</router-link>
+          </li>
+        </ul>
+        <ul v-else>
+          <li v-for="(item,index) in noLoginTab" :key="index">
             <router-link :to="item.path">{{item.text}}</router-link>
           </li>
         </ul>
       </div>
     </div>
-    <button @click="xxx = 1">xxx</button>
   </div>
 </template>
 <script>
 export default {
   data(){
     return {
-      xxx:'xxx',
-      tab:[
+      noLoginTab:[
         {text:'首页',path:'/'},
-        {text:'新手入门',path:''},
-        {text:'API',path:''},
-        {text:'关于',path:''},
-        {text:'注册',path:'/userPage'},
         {text:'登录',path:'/login'}
+      ],
+      loginTab:[
+        {text:'首页',path:'/'},
+        {text:'未读消息',path:''},
+        {text:'设置',path:''},
+        {text:'退出',path:'/',isLoginOut:true}
       ]
+    }
+  },
+  methods:{
+    navClick({isLoginOut = false}){
+      if(isLoginOut){
+        this.$store.commit('markLogin',false)
+      }
     }
   },
   computed:{
     isLogin(){
-      this.xxx
-      this.$store.isLogin
-      this.tab
-      console.log(this.tab)
-      return '';
+      return this.$store.state.isLogin;
     }
   }
 }

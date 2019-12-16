@@ -3,10 +3,10 @@
     <TopNav />
     <main>
       <div class="list-contain">
-        <router-view name="main"></router-view>
+        <Main/>
       </div>
       <aside>
-        <router-view name="aside"></router-view>
+        <Aside/>
       </aside>
     </main>
   </div>
@@ -14,11 +14,15 @@
 
 <script>
 import TopNav from './components/TopNav'
+import Aside from "@/components/Aside"
+import Main from "@/components/Main"
 
 export default {
   name: "app",
   components: {
-    TopNav
+    TopNav,
+    Aside,
+    Main
   }
 };
 </script>
@@ -57,6 +61,8 @@ main{
   margin-right: 20px;
 }
 aside{
+  flex-shrink: 0;
   margin-top: 20px;
+  width: 290px;
 }
 </style>

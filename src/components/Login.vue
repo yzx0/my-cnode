@@ -6,7 +6,7 @@
       <span>登录</span>
     </div>
     <div class="panel-content">
-      <label>accessToken:<input placeholder="请输入accessToken..." v-model="accesstoken"></label>
+      <label>accessToken:<input placeholder="请输入accessToken..." v-model="accesstoken" @keypress.enter="login"></label>
       <button @click="login">登录</button>
     </div>
   </div>
@@ -25,8 +25,9 @@ export default {
         accesstoken:this.accesstoken
       })
       .then(res => {
-        console.log(res)
-        this.$stroe.comit('markLogin',true)
+        this.$store.commit('markLogin',true)
+        this.$store.commit('saveUserInfo',res.data)
+        this.$router.push('/')
       })
       .catch(err => {
         console.log(err)
