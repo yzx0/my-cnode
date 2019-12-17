@@ -6,7 +6,7 @@
         <img :src="userInfo.avatar_url" alt="">
         <span>{{userInfo.loginname}}</span>
       </div>
-      <p>积分：{{score}}</p>
+      <p class="score">积分：{{userInfo.score}}</p>
     </div>
   </div>
 </template>
@@ -19,7 +19,6 @@ export default {
     }
   },
   created(){
-    
     this.$axios.get('https://cnodejs.org/api/v1/user/'+this.$store.state.userInfo.loginname)
     .then((result) => {
       this.userInfo = result.data.data
@@ -44,5 +43,8 @@ export default {
     font-size: 15px;
     padding-left: 10px;
   }
+}
+.score{
+  margin-top: 15px;
 }
 </style>

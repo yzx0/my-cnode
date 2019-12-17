@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import TopNav from './components/TopNav'
+import TopNav from '@/components/TopNav'
 import Aside from "@/components/Aside"
 import Main from "@/components/Main"
 
