@@ -1,21 +1,28 @@
 <template>
   <div id="app">
     <TopNav />
-    <div class="width-contain">
-      <TopicList />
-    </div>
+    <main>
+      <div class="list-contain">
+        <Main/>
+      </div>
+      <aside>
+        <Aside/>
+      </aside>
+    </main>
   </div>
 </template>
 
 <script>
-import TopNav from "./components/TopNav";
-import TopicList from './components/TopicList'
+import TopNav from '@/components/TopNav'
+import Aside from "@/components/Aside"
+import Main from "@/components/Main"
 
 export default {
   name: "app",
   components: {
     TopNav,
-    TopicList
+    Aside,
+    Main
   }
 };
 </script>
@@ -43,8 +50,19 @@ a{
 body{
   background-color: #e1e1e1;
 }
-.width-contain{
+main{
+  display: flex;
+  justify-content: space-between;
   width: 1400px;
   margin: 0 auto;
+}
+.list-contain{
+  flex-grow: 1;
+  margin-right: 20px;
+}
+aside{
+  flex-shrink: 0;
+  margin-top: 20px;
+  width: 290px;
 }
 </style>

@@ -4,26 +4,15 @@
       <li
         v-for="(item,index) in headerArr"
         :key="index"
-        @click="changeTab(index,item.text)"
+        @click="changeTab(index,item)"
         :class="{active:index === currentTabIndex}"
-      >{{item.text}}</li>
+      >{{item}}</li>
     </ul>
-    
-    <SortPage @changePage="changePage" ref="sortPage"/>
     <div class="topic-list">
       <TopicListItem
-        v-for="(item,index) in topicsArr"
-        :key="index"
-        :title="item.title"
-        :avatarUrl="item.author.avatar_url"
-        :visitCount="item.visit_count"
-        :replyCount="item.reply_count"
-        :tab="item.tab"
-        :lastReplyTime="item.last_reply_at"
-        :isGood="item.good"
-        :isTop="item.top"
-      />
+        v-for="(item,index) in topicsArr" :key="index" :item="item"/>
     </div>
+    <SortPage @changePage="changePage" ref="sortPage"/>
   </div>
 </template>
 <script>
@@ -36,14 +25,7 @@ export default {
   },
   data() {
     return {
-      headerArr: [
-        { text: "全部", isActive: true },
-        { text: "精华", isActive: false },
-        { text: "分享", isActive: false },
-        { text: "回答", isActive: false },
-        { text: "招聘", isActive: false },
-        { text: "客户端测试", isActive: false }
-      ],
+      headerArr: ["全部","精华","分享","回答","招聘"],
       topicsArr: [],
       currentTab: 'all',
       currentTabIndex:0,
