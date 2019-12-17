@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import vuex from 'vuex'
+import createPersistedState from "vuex-persistedstate"
 Vue.use(vuex)
 
 export default new vuex.Store({
@@ -14,5 +15,6 @@ export default new vuex.Store({
     saveUserInfo(state,userInfo){
       state.userInfo = userInfo
     }
-  }
+  },
+  plugins: [createPersistedState()]
 })

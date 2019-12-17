@@ -1,7 +1,7 @@
 <template>
   <div class="panel">
     <div class="panel-title">个人信息</div>
-    <div class="panel-content">
+    <div class="panel-content" v-if="userInfo">
       <div class="userInfo">
         <img :src="userInfo.avatar_url" alt="">
         <span>{{userInfo.loginname}}</span>
