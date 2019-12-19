@@ -39,7 +39,8 @@ export default new router({
       name:'UserPage',
       path:'/userPage',
       components:{
-        main:UserPage
+        UserPage,
+        UserInfo
       }
     }
   ]  
