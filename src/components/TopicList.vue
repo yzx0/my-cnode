@@ -12,7 +12,7 @@
       <TopicListItem
         v-for="(item,index) in topicsArr" :key="index" :item="item"/>
     </div>
-    <SortPage @changePage="changePage" ref="sortPage" initLength="5"/>
+    <SortPage @changePage="changePage" ref="sortPage" :initLength="5"/>
   </div>
 </template>
 <script>
@@ -24,6 +24,7 @@ export default {
     SortPage
   },
   data() {
+    
     return {
       headerArr: ["全部","精华","分享","回答","招聘"],
       topicsArr: [],

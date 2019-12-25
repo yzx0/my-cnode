@@ -28,7 +28,7 @@ export default {
       pageArr: [],
       showPoint: false,
       currentPage: 1,
-      pageLength:this.initLength,
+      pageLength:null,
       showEndPoint:true
     };
   },
@@ -40,23 +40,20 @@ export default {
   methods: {
     changePage(item) {
       this.currentPage = item;
+      this.isShowEndPoint(item)
       if (item > 3) {
         this.showPoint = true;
         this.changePageNum(item);
       } else {
-        this.showEndPoint = true
         this.showPoint = false;
         this.pageArr = [1, 2, 3, 4, 5];
       }
       this.$emit('changePage',item)
     },
     changePageNum(num) {
-      if(num === 50){
+      if(num > 46){
         this.pageArr = [46,47,48,49,50]
-        this.showEndPoint = false
         return
-      }else{
-        this.showEndPoint = true
       }
       let temp = -2;
       for (let i = 0; i < this.pageArr.length; i++) {
@@ -64,11 +61,18 @@ export default {
         temp++;
       }
     },
+    isShowEndPoint(num){
+      if(num > 46){
+        this.showEndPoint = false
+      }else{
+        this.showEndPoint = true
+      }
+    },
     gotoBegin(){
       this.changePage(1)
     },
     gotoEnd(){
-      this.changePage(50)
+       this.changePage(50)
     }
   }
 };
