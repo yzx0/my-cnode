@@ -1,14 +1,10 @@
 <template>
   <div id="app">
     <TopNav />
-    <main>
-      <div class="list-contain">
-        <Main/>
-      </div>
-      <aside>
-        <Aside/>
-      </aside>
-    </main>
+    <div class="flex-contain">
+      <Main class="main-contain"/>
+      <Aside class="aside-contain"/>
+    </div>
   </div>
 </template>
 
@@ -50,17 +46,18 @@ a{
 body{
   background-color: #e1e1e1;
 }
-main{
+.flex-contain{
   display: flex;
   justify-content: space-between;
   width: 1400px;
   margin: 0 auto;
 }
-.list-contain{
+.main-contain{
+  padding-top: 20px;
   flex-grow: 1;
   margin-right: 20px;
 }
-aside{
+.aside-contain{
   flex-shrink: 0;
   margin-top: 20px;
   width: 290px;

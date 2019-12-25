@@ -12,7 +12,7 @@
       <TopicListItem
         v-for="(item,index) in topicsArr" :key="index" :item="item"/>
     </div>
-    <SortPage @changePage="changePage" ref="sortPage"/>
+    <SortPage @changePage="changePage" ref="sortPage" initLength="5"/>
   </div>
 </template>
 <script>

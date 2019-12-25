@@ -37,7 +37,7 @@ export default {
       ],
       loginTab:[
         {text:'首页',path:'/'},
-        {text:'未读消息',path:''},
+        {text:'未读消息',path:'/message'},
         {text:'设置',path:'/userPage'},
         {text:'退出',path:'/',isLoginOut:true}
       ]
