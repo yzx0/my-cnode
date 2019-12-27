@@ -8,9 +8,7 @@
         <span class="topic-visit-count">{{item.visit_count}}</span>
       </div>
       <span :class="[{active:isActive},'topic-tab']">{{thisTab}}</span>
-      <router-link :to="{name:'TopicDetail',params:{id:item.id}}">
-        <span class="topic-title">{{item.title}}</span>
-      </router-link> 
+      <router-link :to="{name:'TopicDetail',params:{id:item.id}}" class="topic-title">{{item.title}}</router-link> 
     </div>
     <div class="topic-list-right">{{item.last_reply_at | formatTime}}</div>
   </div>
@@ -107,7 +105,7 @@ img {
 }
 .topic-title {
   color: #333;
-  max-width: 1100px;
+  max-width: 700px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;

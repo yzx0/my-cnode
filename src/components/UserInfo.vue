@@ -1,11 +1,13 @@
 <template>
-  <div class="panel">
+  <div class="panel" :style="style">
     <div class="panel-title">个人信息</div>
     <div class="panel-content" v-if="userInfo">
-      <div class="userInfo">
-        <img :src="userInfo.avatar_url" alt="">
-        <span>{{userInfo.loginname}}</span>
-      </div>
+      <router-link to="/userPage">
+        <div class="userInfo">
+          <img :src="userInfo.avatar_url" alt="">
+          <span>{{userInfo.loginname}}</span>
+        </div>
+      </router-link>
       <p class="score">积分：{{userInfo.score}}</p>
     </div>
   </div>
@@ -13,16 +15,26 @@
 
 <script>
 export default {
+  props:{
+    bottomDistance:Number
+  },
   data(){
     return {
-      userInfo:null
+      userInfo:null,
+      style:{
+        'margin-bottom':this.bottom + 'px'
+      }
+    }
+  },
+  computed:{
+    bottom(){
+      return this.bottomDistance
     }
   },
   created(){
     this.$axios.get('https://cnodejs.org/api/v1/user/'+this.$store.state.userInfo.loginname)
     .then((result) => {
       this.userInfo = result.data.data
-      console.log(this.userInfo)
     }).catch((err) => {
       console.log(err)
     });

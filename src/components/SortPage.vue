@@ -1,50 +1,83 @@
 <template>
   <div class="sort-page">
-    <p class="go-begin">«</p>
-    <p v-show="showPoint">...</p>
+    <p class="go-begin" @click="gotoBegin">«</p>
+    <p v-show="showPoint" class="noClick">...</p>
     <p
       v-for="(item,index) in pageArr"
       :key="index"
       @click="changePage(item)"
       :class="{active:item === currentPage}"
     >{{item}}</p>
-    <p>...</p>
-    <p class="go-end">»</p>
+    <p v-show="showEndPoint" class="noClick">...</p>
+    <p class="go-end" @click="gotoEnd">»</p>
   </div>
 </template>
 
 <script>
 export default {
   props:{
+    initLength:Number,
+    total:{
+      type:Number,
+      default:50
+    }
+  },
+  created(){
+    for (let index = 0; index < this.initLength; index++) {
+      this.pageArr.push(index+1)
+    }
   },
   data() {
     return {
-      pageArr: [1, 2, 3, 4, 5],
+      pageArr: [],
       showPoint: false,
-      currentPage: 1
+      currentPage: 1,
+      pageLength:null,
+      showEndPoint:false
     };
   },
-  computed:{
-
+  watch:{
+    initLength(){
+      this.pageLength = this.initLength
+    }
   },
   methods: {
     changePage(item) {
       this.currentPage = item;
+      this.isShowEndPoint(item)
       if (item > 3) {
         this.showPoint = true;
         this.changePageNum(item);
       } else {
         this.showPoint = false;
-        this.pageArr = [1, 2, 3, 4, 5];
+        this.showEndPoint = false
+        this.pageArr.length < 4 ? '' : this.pageArr = [1, 2, 3, 4, 5];
       }
       this.$emit('changePage',item)
     },
     changePageNum(num) {
+      if(num > 46){
+        this.pageArr = [46,47,48,49,50]
+        return
+      }
       let temp = -2;
       for (let i = 0; i < this.pageArr.length; i++) {
         this.pageArr.splice(i, 1, num + temp);
         temp++;
       }
+    },
+    isShowEndPoint(num){
+      if(num > 46){
+        this.showEndPoint = false
+      }else{
+        this.showEndPoint = true
+      }
+    },
+    gotoBegin(){
+      this.changePage(1)
+    },
+    gotoEnd(){
+       this.changePage(this.total)
     }
   }
 };
@@ -70,6 +103,9 @@ export default {
     &.active {
       color: #80bd01;
     }
+  }
+  .noClick{
+    cursor: default;
   }
 }
 </style>

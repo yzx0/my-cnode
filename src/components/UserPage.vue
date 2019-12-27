@@ -11,6 +11,17 @@
           <span>{{userInfo.loginname}}</span>
         </div>
         <p class="score">积分：{{userInfo.score}}</p>
+        <router-link to="/collect">
+          <p v-if="userCollect" class="color-gray">{{userCollect.length}}个话题收藏</p>
+        </router-link>
+        <p class="color-gray">github: <a :href="githubLink" target="_blank">@{{userInfo.githubUsername}}</a></p>
+        <p class="color-gray">注册时间 {{userInfo.create_at | formatTime}}</p>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="panel-title">最近创建的话题</div>
+      <div class="panel-content">
+
       </div>
     </div>
   </div>
@@ -21,7 +32,8 @@ export default {
   data() {
     return {
       userInfo:null,
-      userCollect:null
+      userCollect:null,
+      githubLink:null
     };
   },
   created() {
@@ -29,7 +41,7 @@ export default {
       .get("https://cnodejs.org/api/v1/user/" + this.$store.state.userInfo.loginname)
       .then(result => {
         this.userInfo = result.data.data
-        console.log(result);
+        this.githubLink = 'https://github.com/'+this.userInfo.githubUsername
       })
       .catch(err => {
         console.log(err);
@@ -38,6 +50,7 @@ export default {
       .get("https://cnodejs.org/api/v1/topic_collect/" + this.$store.state.userInfo.loginname)
       .then(res => {
         console.log(res)
+        this.userCollect = res.data.data
       })
       .catch(err => {
         console.log(err)
@@ -48,9 +61,7 @@ export default {
 
 <style lang="scss" scoped>
 @import url("../assets/commonStyle.css");
-.panel {
-  margin-top: 20px;
-}
+
 .userInfo {
   display: flex;
   align-items: center;
@@ -63,5 +74,14 @@ export default {
     font-size: 15px;
     padding-left: 10px;
   }
+}
+.panel-content{
+  p{
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+}
+.color-gray{
+  color: gray;
 }
 </style>

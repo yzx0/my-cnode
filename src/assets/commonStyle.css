@@ -1,3 +1,4 @@
-.panel{border-radius: 4px;color: #444;font-size: 14px;}
+.panel{border-radius: 4px;color: #444;font-size: 14px;margin-bottom: 20px;}
 .panel .panel-title{background-color: #f6f6f6;padding: 10px;}
 .panel .panel-content{background-color: #fff;padding: 10px;}
+.color-green{color: #80bd01;}

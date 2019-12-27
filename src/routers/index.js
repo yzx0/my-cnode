@@ -7,6 +7,8 @@ import UserPage from '@/components/UserPage'
 import About from '@/components/About'
 import Unlogin from '@/components/Unlogin'
 import UserInfo from '@/components/UserInfo'
+import Collect from '@/components/Collect'
+import Message from '@/components/Message'
 Vue.use(router)
 
 export default new router({
@@ -24,7 +26,8 @@ export default new router({
       name:'TopicDetail',
       path:'/topicDetail/:id',
       components:{
-        TopicDetail
+        TopicDetail,
+        UserInfo
       }
     },
     {
@@ -41,6 +44,23 @@ export default new router({
       components:{
         UserPage,
         UserInfo
+      }
+    },
+    {
+      name:'Collect',
+      path:'/collect',
+      components:{
+        Collect,
+        UserInfo
+      }
+    },
+    {
+      name:'Message',
+      path:'/message',
+      components:{
+        Message,
+        UserInfo,
+        About
       }
     }
   ]  

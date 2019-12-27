@@ -27,6 +27,7 @@ export default {
       .then(res => {
         this.$store.commit('markLogin',true)
         this.$store.commit('saveUserInfo',res.data)
+        this.$store.commit('saveAccesstoken',this.accesstoken)
         this.$router.push('/')
       })
       .catch(err => {
@@ -38,9 +39,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .panel{
-    margin-top: 20px;
-  }
   .panel-title{
     &>:nth-child(1){
       color: #80bd01;
