@@ -46,7 +46,6 @@ export default {
       this.currentPage = item;
       this.isShowEndPoint(item)
       if (item > 3) {
-        console.log(1)
         this.showPoint = true;
         this.changePageNum(item);
       } else {
