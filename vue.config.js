@@ -1,3 +1,3 @@
 module.exports = {
-  publicPath: process.env.NODE_ENV === 'production' ? '/dist' : '/public',
+  publicPath: process.env.NODE_ENV === 'production' ? './' : '/public',
 }
