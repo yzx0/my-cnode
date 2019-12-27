@@ -109,7 +109,6 @@ li {
   }
 }
 .topic-list-contain {
-  margin-top: 20px;
   border-radius: 4px;
 }
 </style>

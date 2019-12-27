@@ -9,7 +9,7 @@
       <div class="panel-content">
         <TopicListItem  v-for="(item,index) in collectData" :key="index" :item="item"/>
       </div>
-      <SortPage :initLength="pageLength"/>
+      <SortPage :initLength="pageLength" :total="pageLength"/>
     </div>
   </div>
 </template>

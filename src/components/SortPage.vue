@@ -16,7 +16,11 @@
 <script>
 export default {
   props:{
-    initLength:Number
+    initLength:Number,
+    total:{
+      type:Number,
+      default:50
+    }
   },
   created(){
     for (let index = 0; index < this.initLength; index++) {
@@ -29,7 +33,7 @@ export default {
       showPoint: false,
       currentPage: 1,
       pageLength:null,
-      showEndPoint:true
+      showEndPoint:false
     };
   },
   watch:{
@@ -42,11 +46,13 @@ export default {
       this.currentPage = item;
       this.isShowEndPoint(item)
       if (item > 3) {
+        console.log(1)
         this.showPoint = true;
         this.changePageNum(item);
       } else {
         this.showPoint = false;
-        this.pageArr = [1, 2, 3, 4, 5];
+        this.showEndPoint = false
+        this.pageArr.length < 4 ? '' : this.pageArr = [1, 2, 3, 4, 5];
       }
       this.$emit('changePage',item)
     },
@@ -72,7 +78,7 @@ export default {
       this.changePage(1)
     },
     gotoEnd(){
-       this.changePage(50)
+       this.changePage(this.total)
     }
   }
 };
